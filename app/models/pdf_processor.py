@@ -1,16 +1,17 @@
 # app/models/pdf_processor.py
 
 import PyPDF2
-import tiktoken
+import nltk
 from app.utils.config import Config
 from app.utils.logger import get_logger
 
 logger = get_logger(__name__)
+nltk.download("punkt_tab")
 
 
 class PDFProcessor:
     def __init__(self):
-        self.tokenizer = tiktoken.encoding_for_model(Config.CHAT_MODEL_NAME)
+        pass
 
     def extract_text_from_pdf(self, pdf_path):
         try:
@@ -30,10 +31,10 @@ class PDFProcessor:
         chunks = []
         chunk_id = 0
         for page in page_texts:
-            tokens = self.tokenizer.encode(page["text"])
+            tokens = nltk.word_tokenize(page["text"])
             for i in range(0, len(tokens), max_tokens):
                 chunk_tokens = tokens[i : i + max_tokens]
-                chunk_text = self.tokenizer.decode(chunk_tokens)
+                chunk_text = " ".join(chunk_tokens)
                 chunks.append(
                     {
                         "chunk_id": f"chunk_{chunk_id}",
@@ -43,3 +44,9 @@ class PDFProcessor:
                 )
                 chunk_id += 1
         return chunks
+
+    def get_full_text(self, page_text: dict) -> str:
+        full_text = ""
+        for page in page_text:
+            full_text += page["text"] + " "
+        return full_text

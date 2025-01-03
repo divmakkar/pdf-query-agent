@@ -1,8 +1,9 @@
 fastapi
 uvicorn[standard]
-openai
+sentence-transformers
 PyPDF2
-tiktoken
+nltk
 chromadb
 python-dotenv
 python-multipart
+anthropic

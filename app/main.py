@@ -9,7 +9,7 @@ logger = get_logger(__name__)
 app = FastAPI(
     title="PDF Question Answering Agent",
     description="Upload a PDF and enter your questions to receive answers based on the document's content.",
-    version="0.0.1",
+    version="0.0.2",
 )
 
 app.include_router(api.router)

@@ -1,13 +1,13 @@
 
 # PDF Question Answering Agent
 
-This application allows users to upload a PDF document and input a list of questions. The AI agent leverages OpenAI's GPT models to extract answers from the content of the PDF. It uses ChromaDB to store embeddings for efficient semantic search and relies on unique `pdf_id` identifiers to manage data for PDFs that are uploaded.
+This application allows users to upload a PDF document and input a list of questions. The AI agent leverages Anthropic's GPT models to extract answers from the content of the PDF. It uses ChromaDB to store embeddings for efficient semantic search and relies on unique `pdf_id` identifiers to manage data for PDFs that are uploaded.
 
 ## Features
 
 - **PDF Parsing**: Extracts text from PDFs and splits it into tokenized chunks for efficient processing.
-- **Embeddings Storage**: Uses ChromaDB for storing embeddings and performing semantic search on OPENAI embeddings.
-- **Question Answering**: Utilizes OpenAI's GPT models to generate answers based on the document's content that's most relevant to the question.
+- **Embeddings Storage**: Uses ChromaDB for storing embeddings and performing semantic search on Sentence Transformers embeddings.
+- **Question Answering**: Utilizes claude's GPT models to generate answers based on the document's content that's most relevant to the question.
 - **Unique Identification**: Assigns a unique `pdf_id` to each uploaded PDF for data management.
 - **Persistent Storage**: Ensures that embeddings persist across application restarts.
 - **Scalable**: Simplified design without a database, enabling easy scaling and deployment.
@@ -20,7 +20,7 @@ This application allows users to upload a PDF document and input a list of quest
 
 1. **Python 3.10**
 2. **Docker (optional for containerized deployment)**
-3. **OpenAI API Key**
+3. **Anthropic API Key**
 
 ### Installation
 
@@ -45,12 +45,12 @@ pip install -r requirements.txt
 
 #### 1. Without Docker
 
-1. **Set the OpenAI API Key**
+1. **Set the Anthropic API Key**
 
-   Export your OpenAI API key as an environment variable:
+   Export your Anthropic API key as an environment variable:
 
    ```bash
-   export OPENAI_API_KEY=your_openai_api_key
+   export ANTHROPIC_API_KEY=your_anthropic_api_key
    ```
 
 2. **Run the Application**
@@ -74,7 +74,7 @@ pip install -r requirements.txt
 2. **Run the Docker Container**
 
    ```bash
-   docker run -e OPENAI_API_KEY=your_openai_api_key -p 8000:8000 pdf-qa-app
+   docker run -e ANTHROPIC_API_KEY=your_claude_api_key -p 8000:8000 pdf-qa-app
    ```
 
 3. **Access the API**
@@ -133,7 +133,7 @@ pdf-question-answering-agent/
 │   │   ├── __init__.py
 │   │   ├── pdf_processor.py   # Handles PDF text extraction and tokenization
 │   │   ├── embeddings_manager.py  # Manages embeddings with ChromaDB
-│   │   └── question_answering.py  # Handles interaction with OpenAI GPT models
+│   │   └── question_answering.py  # Handles interaction with Anthropic GPT models
 │   ├── utils/
 │   │   ├── __init__.py
 │   │   ├── config.py          # Configuration management
